@@ -1,30 +1,6 @@
 {
-  "updated_at": "2026-09-10T18:05:26.280Z",
+  "updated_at": "2026-09-10T18:05:55.256Z",
   "internships": [
-    {
-      "id": "1789061377679-1ayxwm",
-      "posted_at": "2026-09-10T17:29:37.679Z",
-      "title": "[TEST] Sample Internship - please delete",
-      "company": "[TEST] Example Co",
-      "location": "Denver, CO",
-      "work_mode": "Hybrid",
-      "paid": "Paid",
-      "pay": "$20/hr",
-      "majors": [
-        "Computer Science"
-      ],
-      "years": [
-        "Junior"
-      ],
-      "deadline": "2026-10-15",
-      "start_date": "2026-11-01",
-      "description": "This is a test listing created to verify the publish pipeline. Safe to delete.",
-      "apply_link": "https://example.com/apply",
-      "contact": "test@example.com",
-      "posted_by": "Test Teacher",
-      "teacher_email": "test@example.com",
-      "status": "open"
-    },
     {
       "id": "1789063522382-6s5rq2",
       "posted_at": "2026-09-10T18:05:22.382Z",
