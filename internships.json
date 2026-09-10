@@ -1,5 +1,30 @@
 {
-  "updated_at": "2026-09-10T18:06:04.771Z",
-  "internships": [],
+  "updated_at": "2026-09-10T18:12:38.461Z",
+  "internships": [
+    {
+      "id": "1789063954241-25w5e5",
+      "posted_at": "2026-09-10T18:12:34.241Z",
+      "title": "Google AI Intern",
+      "company": "Google",
+      "location": "Missoula",
+      "work_mode": "On-site",
+      "paid": "Unpaid",
+      "pay": "12 an hour",
+      "majors": [
+        "Open to all majors"
+      ],
+      "years": [
+        "Junior"
+      ],
+      "deadline": "2026-09-18",
+      "start_date": "2026-09-30",
+      "description": "really cool internship",
+      "apply_link": "link",
+      "contact": "",
+      "posted_by": "Reggie Duce",
+      "teacher_email": "info@penwelltradingco.com",
+      "status": "open"
+    }
+  ],
   "past": []
 }
