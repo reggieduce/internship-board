@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T19:41:44.760Z",
+  "updated_at": "2026-09-10T19:44:34.620Z",
   "internships": [
     {
       "id": "1789063954241-25w5e5",
@@ -47,30 +47,6 @@
       "contact": "",
       "posted_by": "Trish Duce",
       "teacher_email": "info@penwelltradingco.com",
-      "status": "open"
-    },
-    {
-      "id": "1789069301533-t5waxg",
-      "posted_at": "2026-09-10T19:41:41.533Z",
-      "title": "Marketing Intern",
-      "company": "Bright Future Media",
-      "location": "Boulder, CO",
-      "work_mode": "Hybrid",
-      "paid": "Paid",
-      "pay": "$18/hr",
-      "majors": [
-        "Marketing"
-      ],
-      "years": [
-        "Junior"
-      ],
-      "deadline": "2026-11-30",
-      "start_date": "2027-01-05",
-      "description": "Support social media campaigns and content creation for a growing media startup.",
-      "apply_link": "https://example.com/marketing-intern",
-      "contact": "hr@brightfuture.example",
-      "posted_by": "Jane Educator",
-      "teacher_email": "jane.educator@example.com",
       "status": "open"
     }
   ],
