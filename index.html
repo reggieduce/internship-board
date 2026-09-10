@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Internship board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4F6FA;
+    --white: #FFFFFF;
+    --ink: #16233F;
+    --cobalt: #2446C9;
+    --cobalt-dark: #1A359E;
+    --marker: #FFE55C;
+    --slate: #5B6780;
+    --rule: #D6DCE7;
+    --muted: #8A93A6;
+    --stub-w: 92px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Archivo", system-ui, sans-serif;
+    font-variation-settings: "wdth" 100;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  a { color: var(--cobalt); }
+  :focus-visible { outline: 3px solid var(--cobalt); outline-offset: 2px; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+  /* Top bar */
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; }
+  .brand { font-weight: 700; font-size: 1rem; }
+  .btn {
+    display: inline-block; font: inherit; font-weight: 650; text-decoration: none;
+    background: var(--cobalt); color: var(--white); border: 0; border-radius: 4px;
+    padding: 10px 16px; cursor: pointer; white-space: nowrap;
+  }
+  .btn:hover { background: var(--cobalt-dark); }
+  .btn-quiet { background: transparent; color: var(--cobalt); box-shadow: inset 0 0 0 1.5px var(--cobalt); }
+  .btn-quiet:hover { background: var(--white); }
+
+  /* Hero: the live count is the headline */
+  .hero { padding: 40px 0 36px; }
+  .hero h1 {
+    margin: 0;
+    font-variation-settings: "wdth" 125;
+    font-weight: 820;
+    font-size: clamp(2.1rem, 6.4vw, 3.9rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .hero .soon {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+    font-weight: 560;
+  }
+  .mark {
+    background: linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 88%, transparent 88%);
+    padding: 0 0.2em;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
+
+  /* Controls */
+  .controls {
+    display: grid; gap: 10px;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    padding-bottom: 20px;
+  }
+  .controls label { display: block; font-size: 0.8rem; color: var(--slate); margin-bottom: 4px; }
+  .controls input, .controls select {
+    width: 100%; font: inherit; color: var(--ink); background: var(--white);
+    border: 1.5px solid var(--rule); border-radius: 4px; padding: 9px 10px;
+  }
+  .controls input:focus, .controls select:focus { border-color: var(--cobalt); outline: none; box-shadow: 0 0 0 3px rgba(36,70,201,.18); }
+
+  .tabs { display: flex; gap: 28px; border-bottom: 1.5px solid var(--rule); }
+  .tab {
+    font: inherit; font-weight: 650; background: none; border: 0; cursor: pointer;
+    color: var(--slate); padding: 10px 0; margin-bottom: -1.5px; border-bottom: 3px solid transparent;
+  }
+  .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .tab .n { font-weight: 400; color: var(--slate); margin-left: 4px; }
+
+  /* Listing rows: date stub + body */
+  .list { list-style: none; margin: 0; padding: 0; }
+  .row {
+    display: grid; grid-template-columns: var(--stub-w) 1fr; gap: 22px;
+    padding: 24px 0; border-bottom: 1px solid var(--rule);
+  }
+  .stub { text-align: left; font-variation-settings: "wdth" 62; line-height: 1; }
+  .stub .mo { display: block; font-size: 1rem; font-weight: 600; color: var(--slate); font-variation-settings: "wdth" 100; }
+  .stub .day { display: block; font-size: 3.4rem; font-weight: 800; letter-spacing: -0.01em; margin: 2px 0 6px; }
+  .stub .left { display: inline-block; font-size: 0.95rem; font-weight: 650; font-variation-settings: "wdth" 85; line-height: 1.3; }
+  .stub .rolling { display: block; font-size: 1.3rem; font-weight: 800; margin-top: 4px; }
+  .row.is-past .stub .day, .row.is-past .stub .rolling { color: var(--muted); }
+
+  .body h2 { margin: 0; font-size: 1.3rem; line-height: 1.25; font-weight: 720; }
+  .org { margin: 2px 0 10px; color: var(--slate); }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 0 0 12px; padding: 0; list-style: none; }
+  .facts li { font-size: 0.88rem; background: var(--white); border: 1px solid var(--rule); border-radius: 3px; padding: 2px 8px; }
+  .facts li.paid { border-color: var(--ink); }
+  .actions { display: flex; align-items: center; gap: 8px 18px; flex-wrap: wrap; margin-top: 14px; }
+  .posted { font-size: 0.85rem; color: var(--slate); }
+
+  details { width: 100%; }
+  summary { cursor: pointer; font-weight: 650; color: var(--cobalt); width: max-content; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+"; display: inline-block; width: 1em; font-weight: 700; }
+  details[open] summary::before { content: "\2013"; }
+  .detail-body { margin-top: 12px; padding: 16px 18px; background: var(--white); border-left: 3px solid var(--ink); }
+  details[open] .detail-body { animation: reveal .18s ease-out; }
+  @keyframes reveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  .desc { white-space: pre-line; margin: 0 0 14px; max-width: 68ch; }
+  .meta { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 0; font-size: 0.92rem; }
+  .meta dt { color: var(--slate); }
+  .meta dd { margin: 0; }
+
+  .empty { padding: 48px 0; }
+  .empty p { margin: 0 0 14px; font-size: 1.1rem; }
+
+  footer { padding: 48px 0 64px; color: var(--slate); font-size: 0.9rem; }
+  footer .signup { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 24px 0; margin-bottom: 20px; border-top: 1.5px solid var(--ink); color: var(--ink); }
+  footer .signup p { margin: 0; font-size: 1.05rem; font-weight: 560; }
+
+  @media (max-width: 680px) {
+    :root { --stub-w: 64px; }
+    .controls { grid-template-columns: 1fr 1fr; }
+    .controls .search, .controls .major { grid-column: 1 / -1; }
+    .row { gap: 14px; }
+    .stub .day { font-size: 2.6rem; }
+    .stub .rolling { font-size: 1rem; }
+    .topbar .btn { padding: 8px 12px; font-size: 0.9rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    details[open] .detail-body { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand" id="brand">Internship board</div>
+      <a class="btn" id="signup-top" href="#">Get email alerts</a>
+    </header>
+
+    <section class="hero" aria-live="polite">
+      <h1 id="headline">Loading internships</h1>
+      <div><span class="soon" id="soon"></span></div>
+    </section>
+
+    <section class="controls" aria-label="Filter internships">
+      <div class="search">
+        <label for="q">Search</label>
+        <input id="q" type="search" placeholder="Title, company, or keyword" autocomplete="off">
+      </div>
+      <div class="major">
+        <label for="f-major">Major</label>
+        <select id="f-major"><option value="">All majors</option></select>
+      </div>
+      <div>
+        <label for="f-pay">Pay</label>
+        <select id="f-pay">
+          <option value="">Paid or unpaid</option>
+          <option value="Paid">Paid only</option>
+          <option value="Unpaid">Unpaid</option>
+          <option value="Stipend or course credit">Stipend or credit</option>
+        </select>
+      </div>
+      <div>
+        <label for="f-mode">Work setting</label>
+        <select id="f-mode">
+          <option value="">Any setting</option>
+          <option>On-site</option>
+          <option>Hybrid</option>
+          <option>Remote</option>
+        </select>
+      </div>
+    </section>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-open" aria-selected="true" aria-controls="results">Open<span class="n" id="n-open"></span></button>
+      <button class="tab" role="tab" id="tab-past" aria-selected="false" aria-controls="results">Past<span class="n" id="n-past"></span></button>
+    </div>
+
+    <main id="results" role="tabpanel"></main>
+
+    <footer>
+      <div class="signup">
+        <p>Get an email when new internships are posted.</p>
+        <a class="btn btn-quiet" id="signup-bottom" href="#">Get email alerts</a>
+      </div>
+      <div id="updated"></div>
+    </footer>
+  </div>
+
+<script>
+/* ============ Settings: edit these ============ */
+const COLLEGE_NAME = "Your College";
+const SIGNUP_FORM_URL = "https://YOUR-N8N-DOMAIN/form/internship-alerts";
+const CLOSING_SOON_DAYS = 7;
+/* ============================================== */
+
+const $ = (id) => document.getElementById(id);
+const state = { all: [], tab: location.hash === "#past" ? "past" : "open" };
+const DAY = 86400000;
+
+$("brand").textContent = COLLEGE_NAME + " internship board";
+document.title = COLLEGE_NAME + " internship board";
+$("signup-top").href = SIGNUP_FORM_URL;
+$("signup-bottom").href = SIGNUP_FORM_URL;
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function safeUrl(u) {
+  try { const url = new URL(u); return /^https?:$/.test(url.protocol) ? url.href : ""; } catch { return ""; }
+}
+function linkEmails(escaped) {
+  return escaped.replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, (m) => `<a href="mailto:${m}">${m}</a>`);
+}
+// "2026-09-30" -> local-midnight Date (new Date("2026-09-30") would be UTC and shift a day)
+function parseDay(s) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || "");
+  return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+}
+function today() { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function fmt(d, opts) { return d.toLocaleDateString(undefined, opts); }
+
+function enrich(item) {
+  const deadline = parseDay(item.deadline);
+  const daysLeft = deadline ? Math.round((deadline - today()) / DAY) : null;
+  const isPast = item.status === "closed" || (daysLeft !== null && daysLeft < 0);
+  const postedAt = item.posted_at ? new Date(item.posted_at) : null;
+  return { ...item, _deadline: deadline, _daysLeft: daysLeft, _past: isPast, _postedAt: postedAt,
+    _search: [item.title, item.company, item.location, item.description, (item.majors || []).join(" ")].join(" ").toLowerCase() };
+}
+
+function matchesFilters(it) {
+  const q = $("q").value.trim().toLowerCase();
+  const major = $("f-major").value;
+  const pay = $("f-pay").value;
+  const mode = $("f-mode").value;
+  if (q && !q.split(/\s+/).every((w) => it._search.includes(w))) return false;
+  if (major) {
+    const m = it.majors || [];
+    if (m.length && !m.includes(major) && !m.includes("Any major")) return false;
+  }
+  if (pay && it.paid !== pay) return false;
+  if (mode && it.work_mode !== mode) return false;
+  return true;
+}
+
+function stubHtml(it) {
+  if (!it._deadline) {
+    return `<div class="stub" aria-label="Rolling deadline"><span class="mo">Deadline</span><span class="rolling">Rolling</span></div>`;
+  }
+  const d = it._deadline, n = it._daysLeft;
+  let left;
+  if (it._past) left = "Closed";
+  else if (n === 0) left = `<span class="mark">Due today</span>`;
+  else if (n <= CLOSING_SOON_DAYS) left = `<span class="mark">${n} day${n === 1 ? "" : "s"} left</span>`;
+  else left = `${n} days left`;
+  const label = `Deadline ${fmt(d, { month: "long", day: "numeric", year: "numeric" })}`;
+  return `<div class="stub" aria-label="${esc(label)}">
+      <span class="mo">${esc(fmt(d, { month: "short" }))}</span>
+      <span class="day">${d.getDate()}</span>
+      <span class="left">${left}</span>
+    </div>`;
+}
+
+function postedText(it) {
+  if (!it._postedAt || isNaN(it._postedAt)) return "";
+  const days = Math.floor((today() - new Date(it._postedAt.getFullYear(), it._postedAt.getMonth(), it._postedAt.getDate())) / DAY);
+  if (days <= 0) return "Posted today";
+  if (days === 1) return "Posted yesterday";
+  if (days < 14) return `Posted ${days} days ago`;
+  return `Posted ${fmt(it._postedAt, { month: "short", day: "numeric" })}`;
+}
+
+function rowHtml(it) {
+  const facts = [];
+  if (it.paid) facts.push(`<li class="${it.paid === "Paid" ? "paid" : ""}">${esc(it.paid)}${it.pay ? ", " + esc(it.pay) : ""}</li>`);
+  if (it.work_mode) facts.push(`<li>${esc(it.work_mode)}</li>`);
+  if (it.majors && it.majors.length) facts.push(`<li>${esc(it.majors.join(", "))}</li>`);
+
+  const meta = [];
+  const start = parseDay(it.start_date);
+  if (start) meta.push(["Starts", fmt(start, { month: "long", day: "numeric", year: "numeric" })]);
+  if (it._deadline) meta.push(["Apply by", fmt(it._deadline, { weekday: "short", month: "long", day: "numeric" })]);
+  if (it.years && it.years.length) meta.push(["Open to", it.years.join(", ")]);
+  if (it.contact) meta.push(["Questions", it.contact, true]);
+  if (it.posted_by) meta.push(["Shared by", it.posted_by]);
+
+  const url = safeUrl(it.apply_link);
+  const apply = url
+    ? `<a class="btn ${it._past ? "btn-quiet" : ""}" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${it._past ? "View posting" : "Apply"}</a>`
+    : "";
+
+  return `<li class="row ${it._past ? "is-past" : ""}">
+    ${stubHtml(it)}
+    <div class="body">
+      <h2>${esc(it.title)}</h2>
+      <p class="org">${esc(it.company)}${it.location ? ", " + esc(it.location) : ""}</p>
+      ${facts.length ? `<ul class="facts">${facts.join("")}</ul>` : ""}
+      <details>
+        <summary>Details</summary>
+        <div class="detail-body">
+          ${it.description ? `<p class="desc">${esc(it.description)}</p>` : ""}
+          ${meta.length ? `<dl class="meta">${meta.map(([k, v, links]) => `<dt>${esc(k)}</dt><dd>${links ? linkEmails(esc(v)) : esc(v)}</dd>`).join("")}</dl>` : ""}
+        </div>
+      </details>
+      <div class="actions">
+        ${apply}
+        ${postedText(it) ? `<span class="posted">${esc(postedText(it))}</span>` : ""}
+      </div>
+    </div>
+  </li>`;
+}
+
+function render() {
+  const open = state.all.filter((i) => !i._past);
+  const past = state.all.filter((i) => i._past);
+
+  // Hero counts always reflect everything open, not the filters
+  const soon = open.filter((i) => i._daysLeft !== null && i._daysLeft <= CLOSING_SOON_DAYS).length;
+  $("headline").textContent = open.length === 0 ? "No internships are open right now." : open.length === 1 ? "1 internship is open." : `${open.length} internships are open.`;
+  $("soon").innerHTML = soon
+    ? `<span class="mark">${soon} close${soon === 1 ? "s" : ""} in the next ${CLOSING_SOON_DAYS} days.</span>`
+    : open.length ? "None close in the next week." : "";
+
+  const openShown = open.filter(matchesFilters)
+    .sort((a, b) => (a._deadline ? a._deadline : Infinity) - (b._deadline ? b._deadline : Infinity));
+  const pastShown = past.filter(matchesFilters)
+    .sort((a, b) => (b._deadline || b._postedAt || 0) - (a._deadline || a._postedAt || 0));
+
+  $("n-open").textContent = openShown.length;
+  $("n-past").textContent = pastShown.length;
+  $("tab-open").setAttribute("aria-selected", state.tab === "open");
+  $("tab-past").setAttribute("aria-selected", state.tab === "past");
+
+  const shown = state.tab === "open" ? openShown : pastShown;
+  const filtered = $("q").value || $("f-major").value || $("f-pay").value || $("f-mode").value;
+
+  if (!shown.length) {
+    const msg = filtered
+      ? `No ${state.tab} internships match these filters.`
+      : state.tab === "open"
+        ? "Sign up for alerts to hear when the next one is posted."
+        : "Internships show up here after their deadline passes.";
+    $("results").innerHTML = `<div class="empty"><p>${msg}</p>${filtered
+      ? `<button class="btn btn-quiet" id="clear">Clear filters</button>`
+      : state.tab === "open" ? `<a class="btn" href="${esc(SIGNUP_FORM_URL)}">Get email alerts</a>` : ""}</div>`;
+    const c = $("clear");
+    if (c) c.onclick = () => { $("q").value = ""; ["f-major", "f-pay", "f-mode"].forEach((id) => ($(id).value = "")); render(); };
+    return;
+  }
+  $("results").innerHTML = `<ul class="list">${shown.map(rowHtml).join("")}</ul>`;
+}
+
+function setTab(tab) {
+  state.tab = tab;
+  history.replaceState(null, "", tab === "past" ? "#past" : location.pathname + location.search);
+  render();
+}
+
+async function load() {
+  try {
+    // Cache-buster so new postings show up as soon as GitHub Pages serves the new file
+    const res = await fetch(`internships.json?v=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    state.all = (data.internships || []).map(enrich);
+
+    const majors = [...new Set(state.all.flatMap((i) => i.majors || []))].filter((m) => m !== "Any major").sort();
+    $("f-major").insertAdjacentHTML("beforeend", majors.map((m) => `<option>${esc(m)}</option>`).join(""));
+
+    if (data.updated_at) {
+      $("updated").textContent = `List updated ${fmt(new Date(data.updated_at), { month: "long", day: "numeric", hour: "numeric", minute: "2-digit" })}`;
+    }
+    render();
+  } catch (err) {
+    $("headline").textContent = "The internship list didn't load.";
+    $("soon").textContent = "";
+    $("results").innerHTML = `<div class="empty"><p>Refresh the page to try again. If this keeps happening, internships.json is missing from the site.</p></div>`;
+  }
+}
+
+$("q").addEventListener("input", render);
+["f-major", "f-pay", "f-mode"].forEach((id) => $(id).addEventListener("change", render));
+$("tab-open").onclick = () => setTab("open");
+$("tab-past").onclick = () => setTab("past");
+load();
+</script>
+</body>
+</html>
