@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T18:12:38.461Z",
+  "updated_at": "2026-09-10T18:15:00.570Z",
   "internships": [
     {
       "id": "1789063954241-25w5e5",
@@ -22,6 +22,30 @@
       "apply_link": "link",
       "contact": "",
       "posted_by": "Reggie Duce",
+      "teacher_email": "info@penwelltradingco.com",
+      "status": "open"
+    },
+    {
+      "id": "1789064097901-0s1ik8",
+      "posted_at": "2026-09-10T18:14:57.901Z",
+      "title": "AWS Intern",
+      "company": "AWS",
+      "location": "Missoula",
+      "work_mode": "On-site",
+      "paid": "Unpaid",
+      "pay": "100 an hour",
+      "majors": [
+        "Business"
+      ],
+      "years": [
+        "Recent graduate"
+      ],
+      "deadline": "2026-09-28",
+      "start_date": "2026-09-21",
+      "description": "A lot of money",
+      "apply_link": "aws link",
+      "contact": "",
+      "posted_by": "Trish Duce",
       "teacher_email": "info@penwelltradingco.com",
       "status": "open"
     }
