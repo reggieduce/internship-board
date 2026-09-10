@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T17:29:41.420Z",
+  "updated_at": "2026-09-10T18:05:26.280Z",
   "internships": [
     {
       "id": "1789061377679-1ayxwm",
@@ -24,6 +24,31 @@
       "posted_by": "Test Teacher",
       "teacher_email": "test@example.com",
       "status": "open"
+    },
+    {
+      "id": "1789063522382-6s5rq2",
+      "posted_at": "2026-09-10T18:05:22.382Z",
+      "title": "[TEST] Indicator Clear - please delete",
+      "company": "[TEST] Delete Me Co",
+      "location": "Remote",
+      "work_mode": "Remote",
+      "paid": "Paid",
+      "pay": "n/a test row",
+      "majors": [
+        "Computer Science"
+      ],
+      "years": [
+        "Senior"
+      ],
+      "deadline": "2026-12-31",
+      "start_date": "2027-01-15",
+      "description": "Automated test submission to clear the canvas indicator. Safe to delete.",
+      "apply_link": "https://example.com/apply",
+      "contact": "test@example.com",
+      "posted_by": "System Test",
+      "teacher_email": "test@example.com",
+      "status": "open"
     }
-  ]
+  ],
+  "past": []
 }
